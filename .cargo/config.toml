@@ -1,0 +1,8 @@
+[build]
+target = "aarch64-aos.json"
+
+[unstable]
+build-std = ["core"]
+
+[target.aarch64-aos]
+rustflags = ["-C", "link-arg=-Tlink.ld"]
