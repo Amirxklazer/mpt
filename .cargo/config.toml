@@ -5,4 +5,5 @@ target = "aarch64-aos.json"
 build-std = ["core"]
 
 [target.aarch64-aos]
-rustflags = ["-C", "link-arg=-T", "-C", "link-arg=link.ld"]
+linker = "rust-lld"
+rustflags = ["-C", "link-arg=-flavor", "-C", "link-arg=ld", "-C", "link-arg=-T", "-C", "link-arg=link.ld"]
