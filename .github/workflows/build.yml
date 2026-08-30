@@ -20,7 +20,7 @@ jobs:
           rustup default nightly
 
       - name: Build kernel
-        run: cargo build --release -Z build-std=core --target aarch64-aos.json
+        run: cargo build --release -Z build-std=core -Z json-target-spec --target aarch64-aos.json
 
       - name: Extract raw binary from ELF
         run: |
