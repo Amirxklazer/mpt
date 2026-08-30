@@ -1,0 +1,37 @@
+name: Build AOS
+
+# Runs on every push, and can also be triggered manually from the
+# Actions tab (the "Run workflow" button) if you want a build without
+# pushing new code.
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Install nightly Rust with rust-src
+        run: |
+          rustup toolchain install nightly --component rust-src
+          rustup default nightly
+
+      - name: Build kernel
+        run: cargo build --release -Z build-std=core --target aarch64-aos.json
+
+      - name: Extract raw binary from ELF
+        run: |
+          rustup component add llvm-tools-preview
+          RUSTC_SYSROOT=$(rustc --print sysroot)
+          OBJCOPY="$RUSTC_SYSROOT/lib/rustlib/x86_64-unknown-linux-gnu/bin/llvm-objcopy"
+          "$OBJCOPY" -O binary target/aarch64-aos/release/aos aos.bin
+          ls -la aos.bin
+
+      - name: Upload aos.bin
+        uses: actions/upload-artifact@v4
+        with:
+          name: aos-bin
+          path: aos.bin
