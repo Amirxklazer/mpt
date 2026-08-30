@@ -11,6 +11,7 @@ const FB_ADDRESS: usize = 0xC000_0000;
 const FB_SIZE_WORDS: usize = 0x3C0000 / 4;
 
 /// Fills the whole screen with one solid color.
+#[inline(never)]
 pub fn fill(color: u32) {
     unsafe {
         let fb = FB_ADDRESS as *mut u32;
