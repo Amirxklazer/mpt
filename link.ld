@@ -17,9 +17,7 @@ MEMORY
 
 SECTIONS
 {
-    . = 0x40008000;
-
-    .text : ALIGN(4096)
+   .text : ALIGN(4096)
     {
         KEEP(*(.text._start))
         *(.text .text.*)
