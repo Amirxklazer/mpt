@@ -12,7 +12,7 @@ ENTRY(_start)
 
 MEMORY
 {
-  RAM (rwx) : ORIGIN = 0x40008000, LENGTH = 128M
+  AOS_RAM (rwx) : ORIGIN = 0x40008000, LENGTH = 128M
 }
 
 SECTIONS
@@ -21,17 +21,17 @@ SECTIONS
     {
         KEEP(*(.text._start))
         *(.text .text.*)
-    } > RAM
+    } > AOS_RAM
 
     .rodata : ALIGN(4096)
     {
         *(.rodata .rodata.*)
-    } > RAM
+    } > AOS_RAM
 
     .data : ALIGN(4096)
     {
         *(.data .data.*)
-    } > RAM
+    } > AOS_RAM
 
     .bss : ALIGN(4096)
     {
@@ -39,7 +39,7 @@ SECTIONS
         *(.bss .bss.*)
         *(COMMON)
         __bss_end = .;
-    } > RAM
+    } > AOS_RAM
 
     /* Stack grows down from the top of our claimed RAM region */
     . = ALIGN(16);
