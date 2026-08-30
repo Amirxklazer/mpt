@@ -3,7 +3,3 @@ target = "aarch64-aos.json"
 
 [unstable]
 build-std = ["core"]
-
-[target.aarch64-aos]
-linker = "rust-lld"
-rustflags = ["-C", "linker-flavor=ld.lld", "-C", "link-arg=-T", "-C", "link-arg=link.ld"]
